@@ -172,7 +172,15 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io("https://kiwi-backend-rtwg.onrender.com");
+        // Connect socket with explicit options for CORS and transports to avoid connection issues
+        const socket = io("https://kiwi-backend-rtwg.onrender.com", {
+            transports: ["websocket"], // Force websocket to avoid polling issues
+            withCredentials: true,
+            extraHeaders: {
+                // If your backend requires any headers, add here, otherwise can omit
+            }
+        });
+
         const chat = document.getElementById("chat");
         const currentRoomEl = document.getElementById("currentRoom");
         const loginPopup = document.getElementById("loginPopup");
@@ -200,10 +208,11 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
+                    credentials: "include", // include credentials for CORS if needed
                     body: JSON.stringify({
                         username,
                         password
-                    })
+                    }),
                 });
 
                 if (!response.ok) return alert("Invalid login credentials.");
@@ -230,11 +239,12 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
+                    credentials: "include",
                     body: JSON.stringify({
                         username,
                         password,
                         nickname
-                    })
+                    }),
                 });
 
                 if (response.ok) {
@@ -272,7 +282,7 @@
             const msg = document.getElementById("msgInput").value.trim();
             if (msg) {
                 socket.emit("sendMessage", msg);
-                document.getElementById("msgInput").value = ""; // clear input after sending
+                document.getElementById("msgInput").value = "";
             }
         });
 
