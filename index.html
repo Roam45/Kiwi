@@ -171,6 +171,7 @@
     </form>
 
     <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
 
     <script>
         // Connect socket with explicit options for CORS and transports to avoid connection issues
@@ -289,7 +290,7 @@
 
         function appendMessage(msg) {
             const div = document.createElement("div");
-            div.textContent = msg;
+            div.innerHTML = marked.parse(msg); // Converts Markdown to HTML
             chat.appendChild(div);
             chat.scrollTop = chat.scrollHeight;
         }
