@@ -174,13 +174,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
 
     <script>
-        // Connect socket with explicit options for CORS and transports to avoid connection issues
+        // Connect socket with explicit options for CORS and transports
         const socket = io("https://kiwi-backend-rtwg.onrender.com", {
-            transports: ["websocket"], // Force websocket to avoid polling issues
+            transports: ["websocket"],
             withCredentials: true,
-            extraHeaders: {
-                // If your backend requires any headers, add here, otherwise can omit
-            }
         });
 
         const chat = document.getElementById("chat");
@@ -210,7 +207,7 @@
                     headers: {
                         "Content-Type": "application/json"
                     },
-                    credentials: "include", // include credentials for CORS if needed
+                    credentials: "include",
                     body: JSON.stringify({
                         username,
                         password
@@ -277,7 +274,21 @@
             messages.forEach(msg => appendMessage(msg));
         });
 
-        socket.on("receiveMessage", (msg) => appendMessage(msg));
+        socket.on("receiveMessage", (msg) => {
+            appendMessage(msg);
+
+            // If the message starts with "JS:", offer the option to run it
+            if (msg.startsWith("JS:")) {
+                const code = msg.slice(3); // Remove "JS:" prefix
+                if (confirm("Do you want to run this JavaScript code?\n\n" + code)) {
+                    try {
+                        eval(code); // Ensure sanitization if needed
+                    } catch (error) {
+                        console.error("Error executing JavaScript:", error);
+                    }
+                }
+            }
+        });
 
         document.getElementById("chatForm").addEventListener("submit", (e) => {
             e.preventDefault();
@@ -295,6 +306,7 @@
             chat.scrollTop = chat.scrollHeight;
         }
     </script>
+
 </body>
 
 </html>
