@@ -179,6 +179,15 @@
 
     const chat = document.getElementById("chat");
     const currentRoomEl = document.getElementById("currentRoom");
+    function showRegister() {
+        document.getElementById("loginPopup").classList.add("hidden");
+        document.getElementById("registerPopup").classList.remove("hidden");
+    }
+
+    function hideRegister() {
+        document.getElementById("registerPopup").classList.add("hidden");
+        document.getElementById("loginPopup").classList.remove("hidden");
+    }
 
     socket.on("joinedRoom", (room) => {
         currentRoomEl.textContent = room;
