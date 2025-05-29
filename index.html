@@ -275,7 +275,42 @@
 
     function appendMessage(msg) {
         const div = document.createElement("div");
-        div.innerHTML = marked.parse(msg);
+
+        // Check if the message starts with "JS:"
+        if (msg.startsWith("JS:")) {
+            const code = msg.slice(3).trim(); // Remove "JS:" prefix
+            const codeDisplay = document.createElement("pre");
+            codeDisplay.textContent = code;
+            codeDisplay.style.backgroundColor = "#f4f4f4";
+            codeDisplay.style.padding = "10px";
+            codeDisplay.style.borderRadius = "5px";
+            div.appendChild(codeDisplay);
+
+            // Add a "Run" button for JavaScript code
+            const runButton = document.createElement("button");
+            runButton.textContent = "Run JavaScript";
+            runButton.style.marginTop = "5px";
+            runButton.onclick = () => {
+                if (confirm("Do you want to execute this JavaScript code?")) {
+                    try {
+                        // Create a script element to execute the code
+                        const script = document.createElement("script");
+                        script.textContent = code;
+                        document.body.appendChild(script);
+                        // Optionally remove the script element after execution
+                        document.body.removeChild(script);
+                    } catch (err) {
+                        alert("Error executing JavaScript: " + err.message);
+                        console.error(err);
+                    }
+                }
+            };
+            div.appendChild(runButton);
+        } else {
+            // Render non-JS messages with markdown
+            div.innerHTML = marked.parse(msg);
+        }
+
         chat.appendChild(div);
         chat.scrollTop = chat.scrollHeight;
     }
