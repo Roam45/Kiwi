@@ -301,6 +301,9 @@
             /* Darker green for button border */
             transition: background-color 0.2s ease;
         }
+        #roomForm button:hover {
+            background-color: #24964F;
+        }
         .chatbutton {
             background-color: #2CA85E;
             /* Main green for room form button */
@@ -313,6 +316,9 @@
             border: 2px solid #2E8B57;
             /* Darker green for button border */
             transition: background-color 0.2s ease;
+        }
+        .chatbutton:hover {
+            background-color: #24964F;
         }
     </style>
 </head>
@@ -362,7 +368,7 @@
 
     <form id="roomForm">
         <input class="defaultInput" id="roomInput" type="text" placeholder="Enter room name..." required />
-        <button class="chatbutton" type="submit">Join Room</button>
+        <button type="submit">Join Room</button>
     </form>
 
     <div id="chat"></div>
