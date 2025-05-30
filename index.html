@@ -281,9 +281,8 @@
 
 <body>
     <div class="background"></div>
-    
+    <h2 class="h2-loader">Kiwi Chat</h2>
     <div class="loader">
-        <h2 class="h2-loader">Kiwi Chat</h2>
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
@@ -335,6 +334,10 @@
     <script>
         setTimeout(() => {
             document.querySelector(".loader").style.opacity = "0";
+        }, 4000);
+
+        setTimeout(() => {
+            document.querySelector(".h2-loader").style.opacity = "0";
         }, 4000);
 
         setTimeout(() => {
