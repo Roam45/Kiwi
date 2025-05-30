@@ -301,6 +301,19 @@
             /* Darker green for button border */
             transition: background-color 0.2s ease;
         }
+        .chatbutton {
+            background-color: #2CA85E;
+            /* Main green for room form button */
+            height: 40px;
+            width: 75px;
+            color: #fff;
+            /* White text for contrast */
+            cursor: pointer;
+            border-radius: 12px;
+            border: 2px solid #2E8B57;
+            /* Darker green for button border */
+            transition: background-color 0.2s ease;
+        }
     </style>
 </head>
 
@@ -356,7 +369,7 @@
 
     <form id="chatForm">
         <input class="defaultInput" id="msgInput" type="text" placeholder="Type a message..." required />
-        <button class="roomForm button" type="submit">Send</button>
+        <button class="chatbutton" class="roomForm button" type="submit">Send</button>
     </form>
     <a href="https://github.com/Roam45/Kiwi" target="_blank">
         <button class="Btn">
